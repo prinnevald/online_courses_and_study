@@ -97,6 +97,11 @@ def main():
     check = Checkbutton(window, text = "Select", var = checkState)
     check.grid(column = 1, row = 3)
     
+    # so, this is the breakdown of some of the most
+    # used widgets in the Tk (at least for me)
+    # here is the link to visit to if need more info
+    # https://docs.python.org/3/library/tkinter.ttk.html#widget
+    
     # start the window and loop it
     # waiting for actions
 
