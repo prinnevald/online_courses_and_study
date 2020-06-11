@@ -1,0 +1,71 @@
+#!/usr/bin/bash
+
+# so, the first line is here to specify the location
+# of the bash interpreter (presumably)
+# and also we need to write "chmod +x name-of-the-file"
+# to make everything work as an executable
+
+echo "hello world, this is my first bash script"
+echo -e '\n'
+
+echo Regular strings do not require quotes
+echo -e '\n'
+
+echo "enclosing a 'string' into quotes"
+echo 'enclosing a "string" into quotes'
+echo -e '\n'
+
+echo -e "this string has a \nnew line"
+
+# this -e allows to execute \ (backslash) commands
+# as if this is in the code and not the string
+
+echo time for some variables action
+echo -e '\n'
+
+who="bash"
+echo -e "hello, $who\n"
+
+# to execute a shell command use $()
+
+echo -e "hello, $(whoami)\n"
+
+echo reading user input
+read who
+echo -e "this is your input: $who\n"
+
+# OPERATORS
+# -eq 	== 	Equal
+# -ne 	!= 	Not equal
+# -gt 	> 	Greater than
+# -ge 	>= 	Greater than or equal
+# -lt 	< 	Less than
+# -le 	<= 	Less than or equal
+
+echo input your age
+read age
+
+if [ $age -gt 21 ]
+then
+	echo you can drink alcohol
+else
+	echo you must be 21 to drink
+fi
+
+echo -e '\n'
+
+# LOOPS
+
+files="/home/prinnevald/Documents/programming/*"
+
+for file in $files
+do
+	echo $(basename $file)
+done
+
+echo -e '\n'
+
+# ARRAYS
+
+arr=('Richard', 'Jared', 'Coding', 'Silicon Valley', 'Dinesh')
+echo ${arr[3]}
