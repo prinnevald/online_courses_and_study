@@ -1,0 +1,78 @@
+This will be the real notes and not a script, because setting up a server is happening
+using different technologies, though I want to expain it, not to automate.
+
+So, first we install CentOS 7 (mininal is enough) onto the PC of our choice. For VM users,
+4 gigabytes is plenty for the minimal installation
+
+enter the root using "su"
+
+next, we install nginx itself, php, php-fpm and other php dependencies.
+if not installing properly out of the box, install epel-relase package to make
+the list of possible installable packages longer.
+
+	yum install nginx (or anything you are going to install)
+
+main config file for the nginx is located at "/etc/nginx/" and is named "nginx.conf"
+you will be editing this file in order to make your website run.
+
+at this moment you can actually type "service nginx start" in the bash and your server will start.
+from any local device go to your local IP (for me it was 192.168.1.4) and you will see the
+default webpage saying something about CentOS.
+
+congratulations! you have setup your own server.
+
+the files of the website are located in "/usr/share/nginx/html" for me. The directory of
+the booting website can be changed in the nginx.conf. It is labeled as "root" here.
+
+so, in the config file you will meet a "location" block. Those are the webpages of the
+website.
+	
+	location / {
+	}
+
+there "/" shows the main page of the website. However if you add this:
+	
+	location /anything {
+	}
+
+you will essentially create a new page called anything.
+For me it would be: 192.168.1.4/anything
+
+But, to access it we of course need files for the page itself, or it will be 404 or other error.
+
+To do that create a directory "anything" in the /usr/share/nginx/yourwebsitedirectory
+(assuming you have changed the root folder for the website)
+
+now create an html called "index.html" in "anything" which will be responsible for this page
+
+you are set! do:
+
+	service nginx reload
+
+and you can enter the page by your IP/anything and you will see whatever you have put inside
+of the "index.html". But we want some action right?
+
+To activate php-fpm we need to add another location for the config file:
+
+	location ~ \.php*{
+		include path-to/fastcgi_params;
+		fastcgi_pass 127.0.0.1:9000;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+and then bash:
+
+	service php-fpm start
+
+then change your index.html to according index.php and it will work fine. Well, have in mind
+to change according "locations" in your configs.
+
+
+To make javascript work:
+
+	yum install nodejs
+
+if I remember correctly. Hope that was it.
+		
+		
